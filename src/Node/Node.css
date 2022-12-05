@@ -1,0 +1,23 @@
+.node{
+    width:25px;
+    height: 25px;
+    outline: 1px solid lightblue;
+    display: inline-block;    
+
+}
+
+.Start-node{ 
+    background-color:green;
+}
+
+.Finish-node{
+    background-color: red;
+}
+
+.Visited-node{
+    background-color: blue;
+}
+
+.wall-node{
+    background-color: darkblue;
+}
