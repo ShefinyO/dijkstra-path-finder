@@ -29,25 +29,35 @@ export default class PathFinder extends React.Component{
         const visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
         const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode)
         console.log(visitedNodesInOrder)
-        this.animateDjikstra(visitedNodesInOrder)
+        this.animateDjikstra(visitedNodesInOrder,nodesInShortestPathOrder)
       }
     
-    animateDjikstra(visitedNodesInOrder){
-        for(let i=0; i<visitedNodesInOrder.length;i++){
+    animateDjikstra(visitedNodesInOrder,nodesInShortestPathOrder){
+        for(let i=0; i<=visitedNodesInOrder.length;i++){
+            if(i===visitedNodesInOrder.length){
+                setTimeout(()=>{
+                    this.animateShortestPath(nodesInShortestPathOrder)
+                },10*i)
+            return
+            }
             setTimeout(()=>{
                 const node = visitedNodesInOrder[i]
-                const newGrid = this.state.grid.slice()
-                const newNode = {
-                    ...node,
-                    visited: true,
-                }
-                newGrid[node.row][node.col] = newNode
-                this.setState({...this.state,grid:newGrid})
-                console.log(this.state.grid)
-        },100 * i )
+        
+                document.getElementById(`node-${node.row}-${node.col}`).className = 'node Visited-node'
+        },10 * i )
     }
 
 }
+
+    animateShortestPath(nodesInShortestPathOrder){
+        for(let i=0; i<nodesInShortestPathOrder.length; i++){
+            setTimeout(()=>{
+                const node = nodesInShortestPathOrder[i]
+                document.getElementById(`node-${node.row}-${node.col}`).className = 'node shortest-path'
+            },70*i)
+           
+        }
+    }
 
     onMouseDown(row,col){
         const newGrid = getGridAfterWalled(this.state.grid, row,col)
@@ -67,8 +77,13 @@ export default class PathFinder extends React.Component{
 
   render(){
     return (
+        <div>
+            <div>shortest path</div>
+            <div>visited nodes</div>
+            <div><button onClick={()=>this.visualizeDijkstra()}>visualize</button></div>
+            <div>start node</div>
+            <div>end node</div>
         <div className='grid'>
-        <button onClick={()=>this.visualizeDijkstra()}>visualize</button>
         <div className='grid2'>
             {this.state.grid.map((row, rowIdx)=>{
                 return <div key={rowIdx}>
@@ -85,10 +100,12 @@ export default class PathFinder extends React.Component{
                     isWall = {isWall}
                     onMouseDown = {(row,col)=>this.onMouseDown(row,col)}
                     onMouseEnter = {(row,col)=>this.onMouseEnter(row,col)}
-                    onMouseUp={(row,col)=>this.onMouseUp(row,col)}/>
+                    onMouseUp={(row,col)=>this.onMouseUp(row,col)}
+                    />
                     )})}
                 </div>
             })}
+        </div>
         </div>
         </div>
       )
@@ -105,7 +122,8 @@ const createNode =(row,col)=>{
            isVisited : false,
            visited:false,
            previousNode: null,
-           isWall: false
+           isWall: false,
+           previousNode : null,
         }}
 
 const getStartingGrid = ()=>{        
