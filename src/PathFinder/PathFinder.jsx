@@ -16,6 +16,7 @@ export default class PathFinder extends React.Component{
         isMousePressed: false,
         freeze:false,
         alert:false,
+        disable:false,
     }
     }
     componentDidMount(){
@@ -55,7 +56,7 @@ export default class PathFinder extends React.Component{
             setTimeout(()=>{
                 const node = nodesInShortestPathOrder[i]
                 document.getElementById(`node-${node.row}-${node.col}`).className = 'node shortest-path'
-                this.setState({...this.state,alert:true })
+                this.setState({...this.state,alert:true})
             },70*i)
             
         }
@@ -91,10 +92,10 @@ export default class PathFinder extends React.Component{
                     <div>Visited nodes</div>
                     <div className="box visited"></div>
                 </div>
-                <div className="info"><button onClick={()=>{
-                    this.setState({...this.state, freeze:true})
+                <div className="info"><button className={this.state.disable?"disabled":"able"} onClick={()=>{
+                    this.setState({...this.state, freeze:true, disable:true})
                     this.visualizeDijkstra()
-                    }}>Visualize</button></div>
+                    }} disabled={this.state.disable}>Visualize</button></div>
                 <div className="infoCont">
                     <div>Start node</div>
                     <div className="box green"></div>
