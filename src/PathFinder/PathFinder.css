@@ -1,10 +1,75 @@
 .grid{
     display: flex;
     justify-content: center;
-    
-    height: 100vh;
+    margin-top: 20px;
+
 }
 
 .grid2{
     font-size: 0;
+    cursor: pointer;
+    
 }
+.hide{
+    pointer-events: none;
+  }
+  
+
+button{
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: none;
+    background-color: black;
+    color: white;
+    transition: all ease-in 0.1s;
+}
+
+button:hover{
+    transform: scale(1.1);
+    cursor: pointer;
+    background-color: grey;
+}
+.infoBar{
+    display: flex;
+    height: 100px;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    background-color: lightblue;
+    
+}
+
+.infoCont{
+    display:flex;
+    gap:10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.box{
+    width:25px;
+    height: 25px;
+    outline: 1px solid lightblue;
+}
+
+.yellow{
+    background-color: yellow;
+}
+
+.visited{
+    background-color: rgba(253, 184, 200, 0.75);
+}
+
+.red{
+    background-color: red;
+}
+
+.wall{
+    background-color: darkblue;
+}
+
+.green{
+    background-color: green;
+}
+
+
